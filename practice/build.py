@@ -1,7 +1,7 @@
 import json
 import subprocess
 import sys
-from dataclasses import dataclass, fields
+from dataclasses import asdict, dataclass, fields
 from enum import Enum
 from pathlib import Path
 from pprint import pp
@@ -63,6 +63,14 @@ def main() -> Codes | int:
     if len(sys.argv) < 3:
         print("Usage: python build.py <file_path> <entry_point> [run]")
         return Codes.ERR
+
+    for key, value in asdict(config.value).items():
+        if isinstance(value, Path):
+            value.mkdir(parents=True, exist_ok=True)
+        else:
+            print("Invalid configuration.")
+            pp({"key": key, "value": value})
+            return Codes.ERR
 
     src_file = Path("./") / sys.argv[1]
     entry = sys.argv[2]
