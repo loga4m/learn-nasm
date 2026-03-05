@@ -2,7 +2,7 @@ default rel
 extern ExitProcess
 
 section .data
-    nums dd -10, 10
+    nums dd -121, 222
 
 section .text
     global main
@@ -26,9 +26,9 @@ MIN:
     push rbp ; tmp = rbp; rsp -= 8; write tmp to [rsp];
     mov rbp, rsp
 
-    mov eax, [rsp + 5 * 8]
-    cmp [rsp + 4 * 8], eax
-    cmovl eax, [rsp + 4 * 8]
+    mov eax, [rsp + 6 * 8]
+    cmp [rsp + 5 * 8], eax
+    cmovl eax, [rsp + 5 * 8]
 
     mov rsp, rbp
     pop rbp
